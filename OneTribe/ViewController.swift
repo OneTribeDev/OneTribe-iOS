@@ -1,19 +1,23 @@
-//
-//  ViewController.swift
-//  OneTribe
-//
-//  Created by Quintin Adam on 2/4/21.
-//
-
 import UIKit
+import Turbo
 
-class ViewController: UIViewController {
-
+final class ViewController: VisitableViewController, ErrorPresenter {
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        if #available(iOS 14.0, *) {
+            navigationItem.backButtonDisplayMode = .minimal
+        }
+        
+        view.backgroundColor = .systemBackground
+        
+        if presentingViewController != nil {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissModal))
+        }
     }
 
-
+    @objc func dismissModal() {
+        dismiss(animated: true)
+    }
 }
 
